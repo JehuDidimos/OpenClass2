@@ -14,25 +14,46 @@
       href="https://fonts.googleapis.com/css2?family=Syne:wght@400..800&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <meta name="description" content="" />
     <link rel="stylesheet" href="./assets/style.css" />
-    <script src="./main.js"></script>
+    <script src="./adminScript.js"></script>
   </head>
   <body>
     <header>
       <a href="./index.html">
         <h1>Sophie Bluel <span>Interior Designer</span></h1>
       </a>
-      
+
       <nav>
         <ul>
           <li>projects</li>
           <li>contact</li>
-          <li class="login-button"><a href="./login.html">login</a></li>
+          <li class="login-button"><a href="./index.html">logout</a></li>
           <li><img src="./assets/icons/instagram.png" alt="Instagram" /></li>
         </ul>
       </nav>
     </header>
+    <section class="modal-section hidden">
+      <div class="modal">
+        <div class="modal-header">
+          <button class="btn-close">⨉</button>
+        </div>
+        <p>Photo gallery</p>
+        <div class="modal-gallery"></div>
+
+        <button class="add-project-button">Add a photo</button>
+
+      </div>
+        
+      </section>
+      <div class="overlay hidden"></div>
     <main>
       <section id="introduction">
         <figure>
@@ -58,7 +79,6 @@
         </article>
       </section>
       <section id="portfolio">
-        <h2>My Projects</h2>
         <div class="gallery">
           <!-- <figure>
 				<img src="assets/images/abajour-tahina.png" alt="Tahina Lampshade">
@@ -120,7 +140,11 @@
           <input type="submit" value="Send" />
         </form>
       </section>
+
+      
     </main>
+
+    <div class="overlay hidden"></div>
 
     <footer>
       <nav>
