@@ -467,6 +467,13 @@ footer nav ul {
   flex-direction: column;
 }
 
+.photo-input{
+  width: 420px;
+  height: 160px;
+  background-color: #E8F1F6;
+
+}
+
 .hidden{
   display: none;
 }
