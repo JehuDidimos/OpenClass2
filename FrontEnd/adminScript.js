@@ -23,7 +23,6 @@ getGallery();
 function checkToken() {
   if (sessionStorage.getItem("token")) {
     const token = sessionStorage.getItem("token");
-    console.log(token);
     addEditStyling();
   } else {
     console.log("No Token");
@@ -101,19 +100,51 @@ function displayGallery(galleryList) {
                 <figcaption>${item.title}</figcaption>
             `;
     element.innerHTML = htmlFigure;
+    element.id = item.id;
 
     const htmlModal = `
     <img src="${item.imageUrl}" alt="${item.title}">
     `;
     modalElement.innerHTML = htmlModal;
+    modalElement.classList.add("modal-project")
+
+    let deleteButton = document.createElement('button')
+    deleteButton.innerHTML = `<i class="fa-solid fa-trash-can fa-xs"  style="color: #ffffff;"></i>`;
+    deleteButton.id = item.id;
+    console.log(deleteButton)
+    deleteButton.addEventListener('click', (event) => {
+      deleteProject(event.currentTarget.id);
+    })
+    modalElement.appendChild(deleteButton)
 
     galleryDiv.appendChild(element);
     modalGallery.appendChild(modalElement);
+
+  
   }
-  deleteProjects();
 }
 
-function deleteProjects(){
-  let modalGalleryList = document.querySelector(".modal-gallery");
-  console.log(modalGalleryList.childNodes);
+async function deleteProject(id){
+  
+  try{
+    await fetch(`http://localhost:5678/api/works/${id}` ,{
+      method: 'DELETE',
+      headers: {
+        "Content-type": "application/json",
+        "Authorization": `Bearer ${sessionStorage.getItem('token')}`
+      }
+    }).then( async (response) => {
+      if(response.status == 204){
+        let toDeleteProject = document.querySelector(`figure#${CSS.escape(id)}`)
+        let toDeleteButton = document.querySelector(`button#${CSS.escape(id)}`)
+        console.log(toDeleteProject);
+        console.log(toDeleteButton);
+
+        toDeleteProject.remove();
+        toDeleteButton.parentNode.remove();
+      }
+    });
+  } catch (e){
+    console.error(e.message)
+  }
 }

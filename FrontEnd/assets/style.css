@@ -379,14 +379,16 @@ footer nav ul {
 .modal-section{
   position: absolute;
   z-index: 20;
-  width: 100%;
+  width: 50%;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .modal{
-  max-width: 50%;
+  max-width: 100%;
   padding: 30px;
   background-color: white;
   display: flex;
@@ -439,5 +441,20 @@ footer nav ul {
   font-size: 14px;
   font-family: "Syne";
   color: #FFFFFF;
+}
+
+.modal-project{
+  position: relative;
+}
+
+.modal-project button{
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #000000;
+  border-radius: 2px;
+  margin: 5px;
+  cursor: pointer;
+  border: none;
 }
 
