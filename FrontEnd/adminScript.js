@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   checkToken();
   let editButton = document.querySelector(".edit-button");
   editButton.addEventListener("click", () => {
-    openEditModal();
+    openDeleteModal();
   });
 
   let closeButton = document.querySelector('.btn-close');
@@ -13,12 +13,25 @@ document.addEventListener("DOMContentLoaded", () => {
   let overlay = document.querySelector('.overlay');
   overlay.addEventListener('click', () => {
     closeEditModal();
+  });
+
+  let addButton = document.querySelector('.add-project-button');
+  addButton.addEventListener('click', () => {
+    addProjectModal();
   })
 
   
 });
 
 getGallery();
+
+function addProjectModal(){
+  let deleteModal = document.querySelector('.delete-modal');
+  deleteModal.classList.add('hidden');
+
+  let addModal = document.querySelector('.add-modal');
+  addModal.classList.remove('hidden');
+}
 
 function checkToken() {
   if (sessionStorage.getItem("token")) {
@@ -55,9 +68,11 @@ function addEditStyling() {
   portfolioTarget.insertBefore(editDiv, galleryTarget);
 }
 
-function openEditModal() {
+function openDeleteModal() {
   let modal = document.querySelector(".modal-section");
   modal.classList.remove("hidden");
+  let deleteModal = document.querySelector('.delete-modal');
+  deleteModal.classList.remove('hidden');
   let overlay = document.querySelector('.overlay');
   overlay.classList.remove("hidden")
 }
@@ -65,8 +80,10 @@ function openEditModal() {
 function closeEditModal(){
   let modal = document.querySelector(".modal-section");
   modal.classList.add("hidden");
-    let overlay = document.querySelector(".overlay");
-    overlay.classList.add("hidden");
+  let deleteModal = document.querySelector('.delete-modal');
+  deleteModal.classList.add('hidden');
+  let overlay = document.querySelector(".overlay");
+  overlay.classList.add("hidden");
 }
 
 async function getGallery() {

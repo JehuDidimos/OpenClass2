@@ -41,7 +41,7 @@
       </nav>
     </header>
     <section class="modal-section hidden">
-      <div class="modal">
+      <div class="delete-modal">
         <div class="modal-header">
           <button class="btn-close">⨉</button>
         </div>
@@ -49,11 +49,24 @@
         <div class="modal-gallery"></div>
 
         <button class="add-project-button">Add a photo</button>
-
       </div>
-        
-      </section>
-      <div class="overlay hidden"></div>
+
+      <div class="add-modal hidden">
+        <div class="modal-header">
+          <button class="btn-close">⨉</button>
+        </div>
+        <p>Add photo</p>
+
+        <form action="#" method="post">
+          <label for="name">Name</label>
+          <input type="text" name="name" id="name" />
+          <label for="email">Email</label>
+          <input type="email" name="email" id="email" />
+          <button type="submit" class="add-project-button">Confirm</button>
+        </form>
+      </div>
+    </section>
+    <div class="overlay hidden"></div>
     <main>
       <section id="introduction">
         <figure>
@@ -140,8 +153,6 @@
           <input type="submit" value="Send" />
         </form>
       </section>
-
-      
     </main>
 
     <div class="overlay hidden"></div>
