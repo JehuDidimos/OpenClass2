@@ -107,16 +107,17 @@ function displayGallery(galleryList) {
     `;
     modalElement.innerHTML = htmlModal;
     modalElement.classList.add("modal-project")
+    modalElement.id = item.id
 
     let deleteButton = document.createElement('button')
     deleteButton.innerHTML = `<i class="fa-solid fa-trash-can fa-xs"  style="color: #ffffff;"></i>`;
-    deleteButton.id = item.id;
     console.log(deleteButton)
     deleteButton.addEventListener('click', (event) => {
-      deleteProject(event.currentTarget.id);
+      deleteProject(event.currentTarget.parentNode.id);
     })
     modalElement.appendChild(deleteButton)
 
+    
     galleryDiv.appendChild(element);
     modalGallery.appendChild(modalElement);
 
@@ -135,13 +136,12 @@ async function deleteProject(id){
       }
     }).then( async (response) => {
       if(response.status == 204){
-        let toDeleteProject = document.querySelector(`figure#${CSS.escape(id)}`)
-        let toDeleteButton = document.querySelector(`button#${CSS.escape(id)}`)
+        let toDeleteProject = document.querySelectorAll(`figure#${CSS.escape(id)}`)
         console.log(toDeleteProject);
-        console.log(toDeleteButton);
+        toDeleteProject.forEach((project) => {
+          project.remove();
+        })
 
-        toDeleteProject.remove();
-        toDeleteButton.parentNode.remove();
       }
     });
   } catch (e){
