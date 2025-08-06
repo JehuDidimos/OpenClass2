@@ -53,20 +53,37 @@
 
       <div class="add-modal hidden">
         <div class="modal-header">
+          <i class="fa-solid fa-arrow-left fa-lg back-btn"></i>
           <button class="btn-close">⨉</button>
         </div>
         <p>Add photo</p>
 
-        <form action="#" method="post">
-          <div class="photo-input">
-            <label for="photo"></label>
-            <input type="file" name="photo" id="photo" />
+        <form id="new-project">
+          <label for="photo" class="photo-input">
+            <img class="preview-image" src="">
+            <div class="photo-button-wrapper">
+              <i class="fa-regular fa-image fa-6x" style="color: #cbd6dc"></i>
+
+              <label for="photo" class="add-photo-button">
+                <p>+ Add Photo</p>
+              </label>
+              <p>jpg, png: max 4 MB</p>
+              <input
+                type="file"
+                name="photo"
+                id="photo"
+                accept="image/*"
+                class="hidden"
+              />
+            </div>
+          </label>
+          <div class="input-wrapper">
+            <label for="title" class="add-input-label">Title</label>
+            <input type="text" name="title" id="title" />
+            <label for="category" class="add-input-label">Category</label>
+            <input type="category" name="category" id="category" />
           </div>
-          <label for="name">Name</label>
-          <input type="text" name="name" id="name" />
-          <label for="email">Email</label>
-          <input type="email" name="email" id="email" />
-          <button type="submit" class="add-project-button">Confirm</button>
+          <button type="submit" class="submit-project-button">Confirm</button>
         </form>
       </div>
     </section>
