@@ -21,6 +21,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet">
     <meta name="description" content="" />
     <link rel="stylesheet" href="./assets/style.css" />
     <script src="./adminScript.js"></script>
@@ -81,7 +82,11 @@
             <label for="title" class="add-input-label">Title</label>
             <input type="text" name="title" id="title" />
             <label for="category" class="add-input-label">Category</label>
-            <input type="category" name="category" id="category" />
+            <select type="category" name="category" id="category" >
+              <option value=0>Object</option>
+              <option value=1>Apartments</option>
+              <option value=2>Hotels & Restaurant</option>
+            </select>
           </div>
           <button type="submit" class="submit-project-button">Confirm</button>
         </form>

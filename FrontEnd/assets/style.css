@@ -526,11 +526,13 @@ footer nav ul {
   width: 100%;
 }
 
-.input-wrapper input {
+.input-wrapper input, select {
   height: 51px;
   border: none;
   box-shadow: 0 4px 14px 0 #00000017;
   margin: 20px 0;
+  font-size: 14px;
+  font-family: "Work Sans";
 }
 
 .input-wrapper label {
