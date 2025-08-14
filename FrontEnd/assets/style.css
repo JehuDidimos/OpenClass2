@@ -550,6 +550,10 @@ footer nav ul {
   flex-direction: column;
 }
 
+.logout-button{
+  cursor: pointer;
+}
+
 .hidden {
   display: none;
 }

@@ -28,15 +28,13 @@
   </head>
   <body>
     <header>
-      <a href="./index.html">
         <h1>Sophie Bluel <span>Interior Designer</span></h1>
-      </a>
-
       <nav>
         <ul>
           <li>projects</li>
           <li>contact</li>
-          <li class="login-button"><a href="./index.html">logout</a></li>
+          <li class="logout-button hidden">logout</li>
+          <li class="login-button"><a href="./login.html">login</a></li>
           <li><img src="./assets/icons/instagram.png" alt="Instagram" /></li>
         </ul>
       </nav>
@@ -83,9 +81,9 @@
             <input type="text" name="title" id="title" />
             <label for="category" class="add-input-label">Category</label>
             <select type="category" name="category" id="category" >
-              <option value=0>Object</option>
-              <option value=1>Apartments</option>
-              <option value=2>Hotels & Restaurant</option>
+              <option value=1>Object</option>
+              <option value=2>Apartments</option>
+              <option value=3>Hotels & Restaurant</option>
             </select>
           </div>
           <button type="submit" class="submit-project-button">Confirm</button>

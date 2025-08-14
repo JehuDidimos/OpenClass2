@@ -1,10 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
+  let finalGalleryList;
   checkToken();
   getGallery();
-  let editButton = document.querySelector(".edit-button");
-  editButton.addEventListener("click", () => {
-    openModal();
-  });
 
   let closeButtons = document.querySelectorAll(".btn-close");
   closeButtons.forEach((btn) => {
@@ -73,10 +70,12 @@ async function submitForm() {
   console.log(category.value);
   console.log(photo.files[0]);
 
+  console.log(category.value);
+
   let formData = new FormData();
-  formData.append('image', photo.files[0]);
-  formData.append('title', `${title.value}`);
-  formData.append('category', `${category.value}`);
+  formData.append("image", photo.files[0]);
+  formData.append("title", `${title.value}`);
+  formData.append("category", `${category.value}`);
 
   const url = "http://localhost:5678/api/works";
   const request = {
@@ -90,6 +89,16 @@ async function submitForm() {
   let response = await fetch(url, request).then(async (response) => {
     console.log(response);
   });
+
+  getGallery();
+
+  const form = document.querySelector("#new-project");
+  const previewImg = document.querySelector(".preview-image");
+  const fileInputWrapper = document.querySelector(".photo-button-wrapper");
+  form.reset();
+  previewImg.removeAttribute("src");
+  previewImg.alt = "";
+  fileInputWrapper.classList.remove("hidden");
 }
 
 function backToDelete() {
@@ -112,14 +121,45 @@ function checkToken() {
   if (sessionStorage.getItem("token")) {
     const token = sessionStorage.getItem("token");
     addEditStyling();
+    logoutFunction();
+    let editButton = document.querySelector(".edit-button");
+    editButton.addEventListener("click", () => {
+      openModal();
+    });
   } else {
     console.log("No Token");
+    getCategories();
+    const logoutButton = document.querySelector(".logout-button");
+    logoutButton.classList.add("hidden");
+    const loginButton = document.querySelector(".login-button");
+    loginButton.classList.remove("hidden");
+    const editIndicator = document.querySelector(".edit-indicator");
+    if(editIndicator){
+      editIndicator.remove();
+    }
+
+    const editButton = document.querySelector(".edit-button");
+    if(editButton){
+      editButton.remove();
+    }
   }
+}
+
+function logoutFunction() {
+  const logoutButton = document.querySelector(".logout-button");
+  logoutButton.addEventListener("click", () => {
+    sessionStorage.removeItem("token");
+    checkToken();
+  });
 }
 
 function addEditStyling() {
   const editIndicator = document.createElement("div");
   editIndicator.className = "edit-indicator";
+  const logoutButton = document.querySelector(".logout-button");
+  logoutButton.classList.remove("hidden");
+  const loginButton = document.querySelector(".login-button");
+  loginButton.classList.add("hidden");
   const header = document.querySelector("header");
   const target = document.querySelector("body");
   target.insertBefore(editIndicator, header);
@@ -141,6 +181,91 @@ function addEditStyling() {
   editDiv.className = "project-edit";
 
   portfolioTarget.insertBefore(editDiv, galleryTarget);
+}
+
+async function getCategories() {
+  try {
+    const url = "http://localhost:5678/api/categories";
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(`Response Status: ${response.status}`);
+    }
+
+    const responseJson = await response.json();
+    createFilterButtons(responseJson);
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+function createFilterButtons(categoryList) {
+  const gallery = document.querySelector(".gallery");
+  const buttonWrapper = document.createElement("div");
+  buttonWrapper.className = "filter-wrapper";
+  const targetLocation = document.querySelector("#portfolio");
+  targetLocation.insertBefore(buttonWrapper, gallery);
+
+  let filterButton = document.createElement("button");
+  filterButton.textContent = "All";
+  filterButton.className = "filter-button";
+  filterButton.id = "active-filter";
+  filterButton.name = "All";
+  filterButton.addEventListener("click", (e) => {
+    activateFilter(e);
+  });
+
+  buttonWrapper.appendChild(filterButton);
+  for (cat of categoryList) {
+    filterButton = document.createElement("button");
+    filterButton.textContent = cat.name;
+    filterButton.className = "filter-button";
+    filterButton.name = cat.name;
+    filterButton.addEventListener("click", (e) => {
+      activateFilter(e);
+    });
+    buttonWrapper.appendChild(filterButton);
+  }
+}
+
+function activateFilter(e) {
+  let currentFilter = document.querySelector("#active-filter");
+  currentFilter.id = "";
+  e.srcElement.id = "active-filter";
+  currentFilter = document.querySelector("#active-filter");
+  filterGallery(currentFilter.name);
+}
+
+function filterGallery(filterName) {
+  const galleryDiv = document.querySelector(".gallery");
+
+  let childrenList = galleryDiv.querySelectorAll("figure");
+  childrenList.forEach((child) => child.remove());
+
+  if (filterName == "All") {
+    for (item of finalGalleryList) {
+      const element = document.createElement("figure");
+      const htmlFigure = `
+                <img src="${item.imageUrl}" alt="${item.title}">
+                <figcaption>${item.title}</figcaption>
+            `;
+      element.innerHTML = htmlFigure;
+
+      galleryDiv.appendChild(element);
+    }
+  } else {
+    for (item of finalGalleryList) {
+      if (item.category.name == filterName) {
+        const element = document.createElement("figure");
+        const htmlFigure = `
+                <img src="${item.imageUrl}" alt="${item.title}">
+                <figcaption>${item.title}</figcaption>
+            `;
+        element.innerHTML = htmlFigure;
+        galleryDiv.appendChild(element);
+      }
+    }
+  }
 }
 
 function openModal() {
@@ -189,8 +314,11 @@ function displayGallery(galleryList) {
   const galleryDiv = document.querySelector(".gallery");
   const modalGallery = document.querySelector(".modal-gallery");
 
-  let childrenList = galleryDiv.querySelectorAll("figure");
-  childrenList.forEach((child) => child.remove());
+  let galleryChildren = galleryDiv.querySelectorAll("figure");
+  galleryChildren.forEach((child) => child.remove());
+
+  let modalList = modalGallery.querySelectorAll("figure");
+  modalList.forEach((child) => child.remove());
 
   for (item of galleryList) {
     const element = document.createElement("figure");
