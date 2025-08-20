@@ -449,6 +449,16 @@ footer nav ul {
   color: #ffffff;
 }
 
+#new-project:not(:has(:invalid))  button[type="submit"]{
+  background-color: #1D6154;
+  cursor: pointer;
+}
+
+
+.add-project-button:hover {
+  background-color: #1D6154;
+}
+
 .modal-project {
   position: relative;
 }

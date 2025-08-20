@@ -14,25 +14,84 @@
       href="https://fonts.googleapis.com/css2?family=Syne:wght@400..800&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet">
     <meta name="description" content="" />
     <link rel="stylesheet" href="./assets/style.css" />
-    <script src="./main.js"></script>
+    <script src="./adminScript.js"></script>
   </head>
   <body>
     <header>
-      <a href="./index.html">
         <h1>Sophie Bluel <span>Interior Designer</span></h1>
-      </a>
-      
       <nav>
         <ul>
           <li>projects</li>
           <li>contact</li>
+          <li class="logout-button hidden">logout</li>
           <li class="login-button"><a href="./login.html">login</a></li>
           <li><img src="./assets/icons/instagram.png" alt="Instagram" /></li>
         </ul>
       </nav>
     </header>
+    <section class="modal-section hidden">
+      <div class="delete-modal">
+        <div class="modal-header">
+          <button class="btn-close">⨉</button>
+        </div>
+        <p>Photo gallery</p>
+        <div class="modal-gallery"></div>
+
+        <button class="add-project-button">Add a photo</button>
+      </div>
+
+      <div class="add-modal hidden">
+        <div class="modal-header">
+          <i class="fa-solid fa-arrow-left fa-lg back-btn"></i>
+          <button class="btn-close">⨉</button>
+        </div>
+        <p>Add photo</p>
+
+        <form id="new-project">
+          <label for="photo" class="photo-input">
+            <img class="preview-image" src="">
+            <div class="photo-button-wrapper">
+              <i class="fa-regular fa-image fa-6x" style="color: #cbd6dc"></i>
+
+              <label for="photo" class="add-photo-button">
+                <p>+ Add Photo</p>
+              </label>
+              <p>jpg, png: max 4 MB</p>
+              <input
+                type="file"
+                name="photo"
+                id="photo"
+                accept="image/*"
+                class="hidden"
+                required
+              />
+            </div>
+          </label>
+          <div class="input-wrapper">
+            <label for="title" class="add-input-label">Title</label>
+            <input type="text" name="title" id="title" required/>
+            <label for="category" class="add-input-label">Category</label>
+            <select type="category" name="category" id="category">
+              <option value=1>Object</option>
+              <option value=2>Apartments</option>
+              <option value=3>Hotels & Restaurant</option>
+            </select>
+          </div>
+          <button type="submit" class="submit-project-button" disabled>Confirm</button>
+        </form>
+      </div>
+    </section>
+    <div class="overlay hidden"></div>
     <main>
       <section id="introduction">
         <figure>
@@ -58,7 +117,6 @@
         </article>
       </section>
       <section id="portfolio">
-        <h2>My Projects</h2>
         <div class="gallery">
           <!-- <figure>
 				<img src="assets/images/abajour-tahina.png" alt="Tahina Lampshade">
@@ -121,6 +179,8 @@
         </form>
       </section>
     </main>
+
+    <div class="overlay hidden"></div>
 
     <footer>
       <nav>

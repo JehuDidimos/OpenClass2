@@ -67,7 +67,7 @@ async function login() {
 function successfulLogin(data){
     console.log("Setting Token");
     sessionStorage.setItem("token", data.token);
-    window.location.href = "./adminPage.html";
+    window.location.href = "./index.html";
 }
 
 function failedLogin(){

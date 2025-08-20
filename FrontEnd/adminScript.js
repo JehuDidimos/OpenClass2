@@ -32,6 +32,14 @@ document.addEventListener("DOMContentLoaded", () => {
     changeImagePreview(file);
   });
 
+  let formListener = document.querySelector("#new-project");
+  formListener.addEventListener("change", () => {
+    updateSubmitButton()
+  })
+  formListener.addEventListener("input", () => {
+    updateSubmitButton()
+  })
+
   let submitProject = document.querySelector(".submit-project-button");
   submitProject.addEventListener("click", (event) => {
     event.preventDefault();
@@ -39,6 +47,14 @@ document.addEventListener("DOMContentLoaded", () => {
     submitForm();
   });
 });
+
+function updateSubmitButton(){
+  const form = document.querySelector("#new-project");
+  const isValid = form.checkValidity();
+
+  const submitButton = document.querySelector('.submit-project-button');
+  submitButton.disabled = !isValid;
+}
 
 function changeImagePreview(file) {
   if (file && file.type.startsWith("image/")) {
@@ -366,6 +382,7 @@ async function deleteProject(id) {
         toDeleteProject.forEach((project) => {
           project.remove();
         });
+        getGallery();
       }
     });
   } catch (e) {
